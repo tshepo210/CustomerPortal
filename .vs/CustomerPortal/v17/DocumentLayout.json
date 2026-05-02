@@ -1,0 +1,463 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\repos\\CustomerPortal\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\views\\payment\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:views\\payment\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\views\\payment\\mypayments.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:views\\payment\\mypayments.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\models\\systemuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:models\\systemuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\models\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:models\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\views\\shared\\_accountlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:views\\shared\\_accountlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\migrations\\20260501212517_addpaymentrelation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:migrations\\20260501212517_addpaymentrelation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\services\\seedservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:services\\seedservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\wwwroot\\css\\account.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:wwwroot\\css\\account.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\models\\changepasswordviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:models\\changepasswordviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\views\\account\\changepassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:views\\account\\changepassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\views\\account\\verifyemail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:views\\account\\verifyemail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\models\\verifyemailviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:models\\verifyemailviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\customerportal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:customerportal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|c:\\repos\\customerportal\\migrations\\20260501213243_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95140731-51CF-4867-83B1-C1BC6F4564CC}|CustomerPortal.csproj|solutionrelative:migrations\\20260501213243_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 219,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 23,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "20260501213243_InitialCreate.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Migrations\\20260501213243_InitialCreate.cs",
+              "RelativeDocumentMoniker": "Migrations\\20260501213243_InitialCreate.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Migrations\\20260501213243_InitialCreate.cs",
+              "RelativeToolTip": "Migrations\\20260501213243_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-01T21:32:43.849Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "20260501212517_AddPaymentRelation.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Migrations\\20260501212517_AddPaymentRelation.cs",
+              "RelativeDocumentMoniker": "Migrations\\20260501212517_AddPaymentRelation.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Migrations\\20260501212517_AddPaymentRelation.cs",
+              "RelativeToolTip": "Migrations\\20260501212517_AddPaymentRelation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-01T21:25:18.593Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Views\\Admin\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Admin\\Index.cshtml",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Views\\Admin\\Index.cshtml",
+              "RelativeToolTip": "Views\\Admin\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-01T21:17:05.641Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MyPayments.cshtml",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Views\\Payment\\MyPayments.cshtml",
+              "RelativeDocumentMoniker": "Views\\Payment\\MyPayments.cshtml",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Views\\Payment\\MyPayments.cshtml",
+              "RelativeToolTip": "Views\\Payment\\MyPayments.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-01T21:15:31.091Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Views\\Payment\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Payment\\Create.cshtml",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Views\\Payment\\Create.cshtml",
+              "RelativeToolTip": "Views\\Payment\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-01T21:14:10.785Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "EmployeeController.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Controllers\\EmployeeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EmployeeController.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Controllers\\EmployeeController.cs",
+              "RelativeToolTip": "Controllers\\EmployeeController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBQAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-01T20:50:01.634Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Payment.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Models\\Payment.cs",
+              "RelativeDocumentMoniker": "Models\\Payment.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Models\\Payment.cs",
+              "RelativeToolTip": "Models\\Payment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T21:12:25.071Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PaymentController.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Controllers\\PaymentController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PaymentController.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Controllers\\PaymentController.cs",
+              "RelativeToolTip": "Controllers\\PaymentController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCQAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T21:09:07.467Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SystemUser.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Models\\SystemUser.cs",
+              "RelativeDocumentMoniker": "Models\\SystemUser.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Models\\SystemUser.cs",
+              "RelativeToolTip": "Models\\SystemUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T16:02:14.475Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ChangePassword.cshtml",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Views\\Account\\ChangePassword.cshtml",
+              "RelativeDocumentMoniker": "Views\\Account\\ChangePassword.cshtml",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Views\\Account\\ChangePassword.cshtml",
+              "RelativeToolTip": "Views\\Account\\ChangePassword.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABwAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-30T11:13:37.277Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "VerifyEmail.cshtml",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Views\\Account\\VerifyEmail.cshtml",
+              "RelativeDocumentMoniker": "Views\\Account\\VerifyEmail.cshtml",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Views\\Account\\VerifyEmail.cshtml",
+              "RelativeToolTip": "Views\\Account\\VerifyEmail.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-30T11:09:34.4Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Views\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "Views\\Account\\Register.cshtml",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Views\\Account\\Register.cshtml",
+              "RelativeToolTip": "Views\\Account\\Register.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADAAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-30T10:51:41.359Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAowDIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T09:29:39.176Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "account.css",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\wwwroot\\css\\account.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\account.css",
+              "ToolTip": "C:\\repos\\CustomerPortal\\wwwroot\\css\\account.css",
+              "RelativeToolTip": "wwwroot\\css\\account.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-04-29T09:24:00.263Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "_AccountLayout.cshtml",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Views\\Shared\\_AccountLayout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_AccountLayout.cshtml",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Views\\Shared\\_AccountLayout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_AccountLayout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T09:21:54.038Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "Controllers\\AccountController.cs",
+              "ViewState": "AgIAAJ8AAAAAAAAAAAAswMIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T09:20:23.766Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "_LoginPartial.cshtml",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Views\\Shared\\_LoginPartial.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_LoginPartial.cshtml",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Views\\Shared\\_LoginPartial.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_LoginPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T09:14:47.138Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ChangePasswordViewModel.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Models\\ChangePasswordViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ChangePasswordViewModel.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Models\\ChangePasswordViewModel.cs",
+              "RelativeToolTip": "Models\\ChangePasswordViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T09:07:02.461Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "VerifyEmailViewModel.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Models\\VerifyEmailViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\VerifyEmailViewModel.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Models\\VerifyEmailViewModel.cs",
+              "RelativeToolTip": "Models\\VerifyEmailViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T09:06:24.445Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RegisterViewModel.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Models\\RegisterViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\RegisterViewModel.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Models\\RegisterViewModel.cs",
+              "RelativeToolTip": "Models\\RegisterViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T09:05:32.063Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Models\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\LoginViewModel.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Models\\LoginViewModel.cs",
+              "RelativeToolTip": "Models\\LoginViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T09:05:04.879Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwCUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-22T19:26:36.176Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "SeedService.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Services\\SeedService.cs",
+              "RelativeDocumentMoniker": "Services\\SeedService.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Services\\SeedService.cs",
+              "RelativeToolTip": "Services\\SeedService.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwCMAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-22T19:20:14.544Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAiwHIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T20:30:32.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAA1wBsAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T20:11:45.441Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\repos\\CustomerPortal\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-21T20:03:18.272Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "CustomerPortal.csproj",
+              "DocumentMoniker": "C:\\repos\\CustomerPortal\\CustomerPortal.csproj",
+              "RelativeDocumentMoniker": "CustomerPortal.csproj",
+              "ToolTip": "C:\\repos\\CustomerPortal\\CustomerPortal.csproj",
+              "RelativeToolTip": "CustomerPortal.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-04-21T18:49:24.856Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
