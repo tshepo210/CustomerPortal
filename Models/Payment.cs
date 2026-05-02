@@ -20,14 +20,14 @@ namespace CustomerPortal.Models
 
         [Required]
         [RegularExpression("^(ZAR|USD|EUR|GBP)$")]
-        public string Currency { get; set; }
+        public required string Currency { get; set; }
 
         [Required]
         [RegularExpression(@"^[A-Z0-9]{8,11}$")]
-        public string SwiftCode { get; set; }
+        public required string SwiftCode { get; set; }
 
         [Required]
-        public string AccountNumber { get; set; }
+        public required string AccountNumber { get; set; }
         public string Status { get; set; } = "Pending";
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

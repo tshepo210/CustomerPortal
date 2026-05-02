@@ -6,6 +6,6 @@ namespace CustomerPortal.Models
     {
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress]
-        public string Email { get; set; }
+        public required string Email { get; set; }
     }
 }
