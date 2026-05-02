@@ -14,27 +14,39 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    # =========================
+    # SETUP .NET
+    # =========================
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore
-
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
-
-    - name: Run tests
-      run: dotnet test --no-build --verbosity normal
-
-    - name: Publish
-      run: dotnet publish -c Release -o out
-
-    - name: Security scan (CodeQL)
+    # =========================
+    # CODEQL INIT (MUST COME FIRST)
+    # =========================
+    - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
         languages: csharp
 
+    # =========================
+    # BUILD (IMPORTANT FOR CODEQL)
+    # =========================
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build project
+      run: dotnet build --configuration Release --no-restore
+
+    # =========================
+    # TESTS
+    # =========================
+    - name: Run tests
+      run: dotnet test --no-build --verbosity normal
+
+    # =========================
+    # CODEQL ANALYSIS
+    # =========================
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
