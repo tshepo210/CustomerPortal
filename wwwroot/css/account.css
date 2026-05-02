@@ -1,43 +1,132 @@
-﻿
-.auth-page {
+﻿/* Base */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f7fb;
+}
+
+/* Wrapper */
+.account-wrapper {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
 }
 
-.auth-header {
+/* Top Bar (Bank-style header) */
+.top-bar {
+    background: #0d1b2a;
     color: #fff;
-    margin-bottom: 20px;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.auth-logo {
-    width: 80px;
-    margin-bottom: 10px;
-}
-
-.auth-title {
+.brand {
+    display: flex;
+    align-items: center;
     font-weight: 600;
-    margin-bottom: 5px;
+    font-size: 18px;
 }
 
-.auth-subtitle {
-    font-size: 14px;
-    opacity: 0.8;
+.logo {
+    width: 35px;
+    margin-right: 10px;
 }
 
-.auth-content {
+.secure-badge {
+    font-size: 13px;
+    opacity: 0.85;
+}
+
+/* Card Container */
+.account-card {
+    margin: auto;
+    background: #ffffff;
+    padding: 40px;
     width: 100%;
     max-width: 420px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
-.account-box {
-    background: #fff;
-    padding: 40px 30px;
-    border-radius: 16px;
+/* Header */
+.card-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+    .card-header h2 {
+        margin: 0;
+        color: #0d1b2a;
+    }
+
+    .card-header p {
+        font-size: 13px;
+        color: #6c757d;
+    }
+
+/* Inputs */
+.form-control {
     width: 100%;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
-    border-top: 6px solid #c00000;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #dcdfe6;
+    background: #f9fafc;
+    transition: 0.2s;
+}
+
+    .form-control:focus {
+        border-color: #1b263b;
+        background: #fff;
+        outline: none;
+    }
+
+/* Labels */
+label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Button */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    border-radius: 8px;
+    background: #1b263b;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .btn-primary:hover {
+        background: #0d1b2a;
+    }
+
+/* Links */
+.account-links {
+    text-align: center;
+    margin-top: 15px;
+}
+
+    .account-links a {
+        color: #1b263b;
+        text-decoration: none;
+        font-size: 13px;
+    }
+
+        .account-links a:hover {
+            text-decoration: underline;
+        }
+
+/* Validation */
+.text-danger {
+    font-size: 12px;
+    color: #d9534f;
 }

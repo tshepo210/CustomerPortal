@@ -63,7 +63,7 @@ namespace CustomerPortal.Controllers
                 return View(model);
             }
 
-            // Normalize email (optional but clean)
+            // Normalize email
             var email = model.Email.Trim().ToLower();
 
             var user = new SystemUser
@@ -71,14 +71,14 @@ namespace CustomerPortal.Controllers
                 FullName = model.Name.Trim(),
                 UserName = email,
                 Email = email,
-                Country = model.Country.Trim().ToUpper() // matches your Regex (e.g. ZA)
+                Country = model.Country.Trim().ToUpper()
             };
 
             var result = await userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
-                // Ensure role exists (safe check)
+                // Ensure role exists
                 if (!await roleManager.RoleExistsAsync("User"))
                 {
                     await roleManager.CreateAsync(new IdentityRole("User"));
@@ -162,7 +162,6 @@ namespace CustomerPortal.Controllers
                 return View(model);
             }
 
-            // To come back to this for Token check
             var token = await userManager.GeneratePasswordResetTokenAsync(user);
             var result = await userManager.ResetPasswordAsync(user, token, model.NewPassword);
             if (result.Succeeded)
