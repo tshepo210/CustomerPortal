@@ -33,8 +33,11 @@
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-danger" asp-controller="Admin" asp-action="Index">Admin Dashboard</a>
+                            <li>
+                                <a class="nav-link text-dark" asp-controller="UserManagement"
+                                   asp-action="Create">
+                                    Create User
+                                </a>
                             </li>
                         }
                     </ul>

@@ -139,3 +139,4 @@ C:\repos\CustomerPortal\obj\Debug\net8.0\refint\CustomerPortal.dll
 C:\repos\CustomerPortal\obj\Debug\net8.0\CustomerPortal.pdb
 C:\repos\CustomerPortal\obj\Debug\net8.0\CustomerPortal.genruntimeconfig.cache
 C:\repos\CustomerPortal\obj\Debug\net8.0\ref\CustomerPortal.dll
+C:\repos\CustomerPortal\obj\Debug\net8.0\CustomerPortal.sourcelink.json

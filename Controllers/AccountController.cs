@@ -53,56 +53,6 @@ namespace CustomerPortal.Controllers
             return View();
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            // Normalize email
-            var email = model.Email.Trim().ToLower();
-
-            var user = new SystemUser
-            {
-                FullName = model.Name.Trim(),
-                UserName = email,
-                Email = email,
-                Country = model.Country.Trim().ToUpper()
-            };
-
-            var result = await userManager.CreateAsync(user, model.Password);
-
-            if (result.Succeeded)
-            {
-                // Ensure role exists
-                if (!await roleManager.RoleExistsAsync("User"))
-                {
-                    await roleManager.CreateAsync(new IdentityRole("User"));
-                }
-
-                // Assign role
-                await userManager.AddToRoleAsync(user, "User");
-
-                // Sign in user
-                await signInManager.SignInAsync(user, isPersistent: false);
-
-                // Redirect to Home
-                return RedirectToAction("Index", "Home");
-            }
-
-            // Show errors properly
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-
-            return View(model);
-        }
-
         [HttpGet]
         public IActionResult VerifyEmail()
         {
