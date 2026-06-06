@@ -30,5 +30,19 @@ namespace CustomerPortal.Models
         public required string AccountNumber { get; set; }
         public string Status { get; set; } = "Pending";
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        // Verification / Submission fields
+        public bool IsVerified { get; set; } = false;
+        public string? VerifiedById { get; set; }
+
+        [ForeignKey("VerifiedById")]
+        [ValidateNever]
+        public SystemUser? VerifiedBy { get; set; }
+
+        public DateTime? VerifiedAt { get; set; }
+
+        public bool IsSubmitted { get; set; } = false;
+        public DateTime? SubmittedAt { get; set; }
+        public string? SwiftReference { get; set; }
     }
 }
