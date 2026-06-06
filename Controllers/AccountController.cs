@@ -47,13 +47,6 @@ namespace CustomerPortal.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpGet]
         public IActionResult VerifyEmail()
         {
             return View();

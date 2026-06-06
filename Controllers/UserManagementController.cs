@@ -1,7 +1,7 @@
-﻿using CustomerPortal.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using CustomerPortal.Models;
 
 namespace CustomerPortal.Controllers
 {
@@ -9,10 +9,12 @@ namespace CustomerPortal.Controllers
     public class UserManagementController : Controller
     {
         private readonly UserManager<SystemUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserManagementController(UserManager<SystemUser> userManager)
+        public UserManagementController(UserManager<SystemUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Create()
@@ -27,26 +29,48 @@ namespace CustomerPortal.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            if (await _userManager.FindByEmailAsync(model.Email) != null)
+            {
+                ModelState.AddModelError(nameof(model.Email), "Email already in use.");
+                return View(model);
+            }
+
             var user = new SystemUser
             {
+                FullName = model.FullName,
                 UserName = model.Email,
                 Email = model.Email,
-                FullName = model.FullName,
-                Country = model.Country
+                Country = model.Country,
+                EmailConfirmed = true
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
-
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, model.Role);
-                return RedirectToAction(nameof(Index));
+                foreach (var err in result.Errors)
+                    ModelState.AddModelError(string.Empty, err.Description);
+                return View(model);
             }
 
-            foreach (var error in result.Errors)
-                ModelState.AddModelError("", error.Description);
+            // Ensure role exists and assign
+            var role = string.IsNullOrWhiteSpace(model.Role) ? "User" : model.Role;
+            if (!await _roleManager.RoleExistsAsync(role))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(role));
+            }
 
-            return View(model);
+            await _userManager.AddToRoleAsync(user, role);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public class CreateUserViewModel
+        {
+            public string FullName { get; set; } = string.Empty;
+            public string Email { get; set; } = string.Empty;
+            public string Password { get; set; } = string.Empty;
+            public string Country { get; set; } = "ZAR";
+            public string Role { get; set; } = "User";
         }
     }
 }
