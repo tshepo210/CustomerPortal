@@ -20,8 +20,8 @@ jobs:
             else
               echo "SONAR_HOST_URL or SONAR_TOKEN not set; skipping SonarScanner begin"
             fi
-      - run: dotnet restore CustomerPortal.csproj
-      - run: dotnet build CustomerPortal.csproj --no-restore -c Release
+      - run: dotnet restore ../CustomerPortal/CustomerPortal.csproj
+      - run: dotnet build ../CustomerPortal/CustomerPortal.csproj --no-restore -c Release
       - run:
           name: Run tests and collect coverage
           command: |
@@ -82,7 +82,7 @@ jobs:
 
       - run:
           name: Run unit tests
-          command: dotnet test ../CustomerPortal.sln --no-build --filter TestCategory!=Integration --verbosity minimal
+          command: dotnet test ../CustomerPortal/CustomerPortal.sln --no-build --filter TestCategory!=Integration --verbosity minimal
 
       - run:
           name: Run integration tests
