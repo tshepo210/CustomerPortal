@@ -59,16 +59,16 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-nuget-{{ checksum "CustomerPortal.sln" }}
+            - v1-nuget-{{ checksum "../CustomerPortal.sln" }}
             - v1-nuget-
 
       - run:
           name: Restore
-          command: dotnet restore CustomerPortal.sln
+          command: dotnet restore ../CustomerPortal.sln
 
       - run:
           name: Build
-          command: dotnet build CustomerPortal.sln --configuration Release --no-restore
+          command: dotnet build ../CustomerPortal.sln --configuration Release --no-restore
 
       - run:
           name: Wait for SQL Server
@@ -82,7 +82,7 @@ jobs:
 
       - run:
           name: Run unit tests
-          command: dotnet test CustomerPortal.sln --no-build --filter TestCategory!=Integration --verbosity minimal
+          command: dotnet test ../CustomerPortal.sln --no-build --filter TestCategory!=Integration --verbosity minimal
 
       - run:
           name: Run integration tests
@@ -94,7 +94,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.nuget/packages
-          key: v1-nuget-{{ checksum "CustomerPortal.sln" }}
+          key: v1-nuget-{{ checksum "../CustomerPortal.sln" }}
 workflows:
   version: 2
   build-and-test-workflow:
