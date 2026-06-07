@@ -20,12 +20,12 @@ jobs:
             else
               echo "SONAR_HOST_URL or SONAR_TOKEN not set; skipping SonarScanner begin"
             fi
-      - run: dotnet restore
-      - run: dotnet build --no-restore -c Release
+      - run: dotnet restore CustomerPortal.csproj
+      - run: dotnet build CustomerPortal.csproj --no-restore -c Release
       - run:
           name: Run tests and collect coverage
           command: |
-            dotnet test --no-build -c Release --logger "trx" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=TestResults/coverage.opencover.xml
+            dotnet test ../CustomerPortal.IntegrationTests/CustomerPortal.IntegrationTests.csproj --no-build -c Release --logger "trx" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=TestResults/coverage.opencover.xml
       - run:
           name: Sonar end (if configured)
           command: |
