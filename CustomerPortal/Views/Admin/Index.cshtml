@@ -1,0 +1,34 @@
+﻿@model List<CustomerPortal.Models.Payment>
+
+<h2>Admin Dashboard</h2>
+
+<table>
+    <tr>
+        <th>User</th>
+        <th>Amount</th>
+        <th>Currency</th>
+        <th>SWIFT</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.UserId</td>
+            <td>@item.Amount</td>
+            <td>@item.Currency</td>
+            <td>@item.SwiftCode</td>
+            <td>@item.Status</td>
+            <td>
+                @if (item.Status == "Pending")
+                {
+                    <form asp-action="Approve" method="post">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit">Approve</button>
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+</table>

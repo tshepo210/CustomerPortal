@@ -1,0 +1,58 @@
+﻿@model CustomerPortal.Models.Payment
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-dark text-white rounded-top-4">
+            <h4 class="mb-0">💳 Make a Payment</h4>
+        </div>
+
+        <div class="card-body p-4">
+
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label class="form-label">Amount</label>
+                    <input asp-for="Amount" class="form-control form-control-lg" placeholder="Enter amount" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Currency</label>
+                    <select asp-for="Currency" class="form-select form-select-lg">
+                        <option value="">-- Select Currency --</option>
+                        <option value="ZAR">ZAR</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                    </select>
+                    <span asp-validation-for="Currency" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Account Number</label>
+                    <input asp-for="AccountNumber" class="form-control" placeholder="e.g. 1234567890" />
+                    <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">SWIFT Code</label>
+                    <input asp-for="SwiftCode" class="form-control text-uppercase" placeholder="e.g. ABSAZAJJ" />
+                    <span asp-validation-for="SwiftCode" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="MyPayments" class="btn btn-outline-secondary">
+                        ← Back
+                    </a>
+
+                    <button type="submit" class="btn btn-success px-4">
+                        Pay Now 💸
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
