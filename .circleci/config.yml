@@ -1,0 +1,91 @@
+version: 2.1
+
+jobs:
+  build_sonar:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:8.0
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install SonarScanner for MSBuild
+          command: |
+            dotnet tool install --global dotnet-sonarscanner || true
+            export PATH="$PATH:$HOME/.dotnet/tools"
+      - run:
+          name: Sonar begin (if configured)
+          command: |
+            if [ -n "$SONAR_HOST_URL" ] && [ -n "$SONAR_TOKEN" ]; then
+              dotnet sonarscanner begin /k:"CustomerPortal" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+            else
+              echo "SONAR_HOST_URL or SONAR_TOKEN not set; skipping SonarScanner begin"
+            fi
+      - run: dotnet restore
+      - run: dotnet build --no-restore -c Release
+      - run:
+          name: Run tests and collect coverage
+          command: |
+            dotnet test --no-build -c Release --logger "trx" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=TestResults/coverage.opencover.xml
+      - run:
+          name: Sonar end (if configured)
+          command: |
+            if [ -n "$SONAR_HOST_URL" ] && [ -n "$SONAR_TOKEN" ]; then
+              dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
+            else
+              echo "SONAR_HOST_URL or SONAR_TOKEN not set; skipping SonarScanner end"
+            fi
+      - run: dotnet publish -c Release -o publish
+      - run:
+          name: Check for vulnerable NuGet packages
+          command: |
+            echo "Checking for vulnerable packages..."
+            dotnet list package --vulnerable || true
+      - persist_to_workspace:
+          root: .
+          paths:
+            - publish
+            - TestResults
+
+  zap_scan:
+    docker:
+      - image: docker:24.0.5
+    working_directory: /workspace
+    steps:
+      - setup_remote_docker
+      - attach_workspace:
+          at: /workspace
+      - run:
+          name: Build container and start app from published output
+          command: |
+            cd /workspace/publish
+            cat > Dockerfile <<'DOCKER'
+            FROM mcr.microsoft.com/dotnet/aspnet:8.0
+            WORKDIR /app
+            COPY . .
+            ENTRYPOINT ["dotnet", "CustomerPortal.dll"]
+            DOCKER
+            docker build -t customerportal:ci .
+            docker run -d --name customerportal -p 5000:80 customerportal:ci
+            # wait for the app to be available
+            for i in {1..30}; do
+              if curl -sSf http://127.0.0.1:5000 >/dev/null; then
+                echo "app is up"
+                break
+              fi
+              sleep 2
+            done
+      - run:
+          name: Run OWASP ZAP baseline scan
+          command: |
+            docker run --rm -v $(pwd):/zap/wrk/:Z owasp/zap2docker-stable zap-baseline.py -t http://127.0.0.1:5000 -r /zap/wrk/zap_report.html
+      - store_artifacts:
+          path: /workspace/publish/zap_report.html
+
+workflows:
+  version: 2
+  scan_and_test:
+    jobs:
+      - build_sonar
+      - zap_scan:
+          requires:
+            - build_sonar
