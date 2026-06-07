@@ -53,6 +53,7 @@ jobs:
         environment:
           ACCEPT_EULA: "Y"
           SA_PASSWORD: "<< pipeline | SA_PASSWORD >>" # set in CircleCI project settings
+    working_directory: ~/repo/CustomerPortal
     steps:
       - checkout
 
@@ -88,7 +89,7 @@ jobs:
           command: |
             export SA_PASSWORD=${SA_PASSWORD}
             export ConnectionStrings__DefaultConnection="Server=mssql,1433;Initial Catalog=CustomerPortalTest;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;"
-            dotnet test CustomerPortal.IntegrationTests/CustomerPortal.IntegrationTests.csproj --no-build --verbosity minimal
+            dotnet test ../CustomerPortal.IntegrationTests/CustomerPortal.IntegrationTests.csproj --no-build --verbosity minimal
 
       - save_cache:
           paths:
