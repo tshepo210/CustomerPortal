@@ -58,7 +58,7 @@ jobs:
           name: Build container and start app from published output
           command: |
             cd /workspace/publish
-            cat > Dockerfile <<'DOCKER'
+            cat > Dockerfile \<<'DOCKER'
             FROM mcr.microsoft.com/dotnet/aspnet:8.0
             WORKDIR /app
             COPY . .
