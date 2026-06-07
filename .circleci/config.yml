@@ -52,7 +52,7 @@ jobs:
         name: mssql
         environment:
           ACCEPT_EULA: "Y"
-          SA_PASSWORD: "<< pipeline | SA_PASSWORD >>" # set in CircleCI project settings
+          SA_PASSWORD: "${SA_PASSWORD}" # set in CircleCI project settings or via contexts
     working_directory: ~/repo/CustomerPortal
     steps:
       - checkout
