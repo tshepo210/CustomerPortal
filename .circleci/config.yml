@@ -25,7 +25,14 @@ jobs:
       - run:
           name: Sonar begin (optional)
           command: |
+            # Ensure dotnet global tools path is available in this step
+            export PATH="$PATH:$HOME/.dotnet/tools"
             if [ -n "$SONAR_HOST_URL" ] && [ -n "$SONAR_TOKEN" ]; then
+              # verify tool is available
+              if ! command -v dotnet-sonarscanner >/dev/null 2>&1; then
+                echo "dotnet-sonarscanner not found on PATH; listing global tools"
+                dotnet tool list -g || true
+              fi
               dotnet sonarscanner begin /k:"CustomerPortal" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN"
             else
               echo "SONAR_HOST_URL or SONAR_TOKEN not set; skipping SonarScanner begin"
@@ -102,7 +109,13 @@ jobs:
       - run:
           name: Sonar end (optional)
           command: |
+            # Ensure dotnet global tools path is available in this step
+            export PATH="$PATH:$HOME/.dotnet/tools"
             if [ -n "$SONAR_HOST_URL" ] && [ -n "$SONAR_TOKEN" ]; then
+              if ! command -v dotnet-sonarscanner >/dev/null 2>&1; then
+                echo "dotnet-sonarscanner not found on PATH; listing global tools"
+                dotnet tool list -g || true
+              fi
               dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
             else
               echo "SONAR_HOST_URL or SONAR_TOKEN not set; skipping SonarScanner end"
