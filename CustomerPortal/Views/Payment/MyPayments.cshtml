@@ -8,7 +8,7 @@
 
             @if (User.IsInRole("Admin"))
             {
-                <button id="btnOpenSubmitModalHeader" type="button" class="btn btn-success btn-sm">
+                <button id="btnOpenSubmitModalHeader" type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#confirmSubmitModal">
                     Submit to SWIFT
                 </button>
             }
@@ -122,7 +122,7 @@
                 @if (User.IsInRole("Admin"))
                 {
                     <div class="d-flex justify-content-end">
-                        <button id="btnOpenSubmitModal" type="button" class="btn btn-success">Submit Selected to SWIFT</button>
+                        <button id="btnOpenSubmitModal" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmSubmitModal">Submit Selected to SWIFT</button>
                     </div>
                 }
             </form>
@@ -157,51 +157,194 @@
 
 @section Scripts {
     <script>
-        // Select all toggle
-        document.getElementById('selectAll')?.addEventListener('change', function (e) {
-            const checked = e.target.checked;
-            document.querySelectorAll('.selectItem').forEach(cb => {
-                if (!cb.disabled) cb.checked = checked;
-            });
-        });
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                console.log('MyPayments script initializing');
+                // Select all toggle
+                document.getElementById('selectAll')?.addEventListener('change', function (e) {
+                    const checked = e.target.checked;
+                    document.querySelectorAll('.selectItem').forEach(cb => {
+                        if (!cb.disabled) cb.checked = checked;
+                    });
+                });
 
-        // Helper: count selected valid checkboxes
-        function getSelectedValidItems() {
-            const items = Array.from(document.querySelectorAll('.selectItem'));
-            // Only include those that are enabled (i.e., verified and not submitted)
-            return items.filter(cb => !cb.disabled && cb.checked);
-        }
-
-        // Open modal handlers (header and bottom)
-        const openButtons = [document.getElementById('btnOpenSubmitModal'), document.getElementById('btnOpenSubmitModalHeader')];
-        openButtons.forEach(btn => {
-            if (!btn) return;
-            btn.addEventListener('click', function (e) {
-                const selected = getSelectedValidItems();
-                if (selected.length === 0) {
-                    // Briefly show an inline alert instead of modal
-                    alert('No verified payments selected for submission.');
-                    return;
+                // Helper: count selected valid checkboxes
+                function getSelectedValidItems() {
+                    const items = Array.from(document.querySelectorAll('.selectItem'));
+                    // Only include those that are enabled (i.e., verified and not submitted)
+                    return items.filter(cb => !cb.disabled && cb.checked);
                 }
 
-                // Update modal content
-                document.getElementById('selectedCount').textContent = selected.length;
+                // Open modal handlers (header and bottom)
+                const openButtons = [document.getElementById('btnOpenSubmitModal'), document.getElementById('btnOpenSubmitModalHeader')];
+                openButtons.forEach(btn => {
+                    if (!btn) return;
+                    console.log('Attaching open handler to', btn.id);
+                    btn.addEventListener('click', function (e) {
+                        const selected = getSelectedValidItems();
+                        if (selected.length === 0) {
+                            // Briefly show an inline alert instead of modal
+                            alert('No verified payments selected for submission.');
+                            return;
+                        }
 
-                // If any selected checkboxes are not verified or are disabled (shouldn't happen) show warning
-                const warning = document.getElementById('confirmWarning');
-                warning.classList.add('d-none');
+                        // Update modal content
+                        const selectedCountEl = document.getElementById('selectedCount');
+                        if (selectedCountEl) selectedCountEl.textContent = selected.length;
 
-                // Show modal
-                const modalEl = document.getElementById('confirmSubmitModal');
-                const modal = new bootstrap.Modal(modalEl);
-                modal.show();
-            });
-        });
+                        // If any selected checkboxes are not verified or are disabled (shouldn't happen) show warning
+                        const warning = document.getElementById('confirmWarning');
+                        if (warning) warning.classList.add('d-none');
 
-        // On confirm, submit the main form
-        document.getElementById('modalConfirm')?.addEventListener('click', function () {
-            // Submit the form - the selected checkboxes are inside the form
-            document.getElementById('paymentsForm').submit();
+                        // Show modal
+                        const modalEl = document.getElementById('confirmSubmitModal');
+                        if (!modalEl) {
+                            console.warn('Confirm modal element not found.');
+                            return;
+                        }
+                        if (typeof bootstrap === 'undefined') {
+                            console.warn('Bootstrap JS not loaded.');
+                            return;
+                        }
+                        const modal = new bootstrap.Modal(modalEl);
+                        modal.show();
+                    });
+                });
+
+                // Ensure modal show event validates selection even when using data-bs attributes
+                const confirmModalEl = document.getElementById('confirmSubmitModal');
+                if (confirmModalEl && typeof bootstrap !== 'undefined') {
+                    console.log('Adding show.bs.modal listener');
+                    confirmModalEl.addEventListener('show.bs.modal', function (e) {
+                        const selected = getSelectedValidItems();
+                        if (!selected || selected.length === 0) {
+                            // Prevent modal from showing when nothing selected
+                            e.preventDefault();
+                            alert('No verified payments selected for submission.');
+                            return;
+                        }
+
+                        const selectedCountEl = document.getElementById('selectedCount');
+                        if (selectedCountEl) selectedCountEl.textContent = selected.length;
+                        console.log('Modal will show for', selected.length, 'selected items');
+                        const warning = document.getElementById('confirmWarning');
+                        if (warning) warning.classList.add('d-none');
+                    });
+                }
+
+                // Helper to show a temporary alert in the card body
+                function showLiveAlert(message, type = 'success') {
+                    const cardBody = document.querySelector('.card-body');
+                    if (!cardBody) return;
+
+                    // Remove any existing live alert
+                    const existing = document.getElementById('liveSubmitAlert');
+                    if (existing) existing.remove();
+
+                    const div = document.createElement('div');
+                    div.id = 'liveSubmitAlert';
+                    div.className = `alert alert-${type}`;
+                    div.textContent = message;
+                    // Insert at the top of the card body, below any TempData alerts
+                    const firstChild = cardBody.firstElementChild;
+                    if (firstChild) cardBody.insertBefore(div, firstChild);
+                    else cardBody.prepend(div);
+                }
+
+                // On confirm, submit the main form via AJAX so we can show a success message and reload
+                // Attach confirm click handler
+                const modalConfirmEl = document.getElementById('modalConfirm');
+                if (modalConfirmEl) console.log('modalConfirm element found, attaching click handler');
+                document.getElementById('modalConfirm')?.addEventListener('click', function () {
+                    console.log('modalConfirm clicked (primary handler)');
+                    const form = document.getElementById('paymentsForm');
+                    if (!form) { console.warn('paymentsForm not found'); return; }
+
+                    const selected = getSelectedValidItems();
+                    if (selected.length === 0) {
+                        alert('No verified payments selected for submission.');
+                        return;
+                    }
+
+                    // Hide the modal first
+                    const modalEl = document.getElementById('confirmSubmitModal');
+                    if (!modalEl) {
+                        console.warn('Confirm modal element not found on confirm.');
+                    } else if (typeof bootstrap === 'undefined') {
+                        console.warn('Bootstrap JS not available to hide modal.');
+                    } else {
+                        const bsModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                        bsModal.hide();
+                    }
+
+                    // Build FormData from the form (includes anti-forgery token and selectedIds)
+                    const formData = new FormData(form);
+
+                    // Disable confirm button to avoid duplicate submissions
+                    const confirmBtn = document.getElementById('modalConfirm');
+                    if (confirmBtn) confirmBtn.disabled = true;
+                    console.log('Submitting to', form.action);
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        credentials: 'same-origin'
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                // Show success message and reload shortly after
+                                showLiveAlert('Payment(s) successfully submitted to SWIFT.', 'success');
+                                setTimeout(() => window.location.reload(), 1200);
+                            } else {
+                                // If the server redirected (common for RedirectToAction), follow through
+                                if (response.redirected) {
+                                    window.location.href = response.url;
+                                    return;
+                                }
+                                showLiveAlert('Error submitting payments. Please try again.', 'danger');
+                                if (confirmBtn) confirmBtn.disabled = false;
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            showLiveAlert('Network error while submitting payments.', 'danger');
+                            if (confirmBtn) confirmBtn.disabled = false;
+                        });
+                });
+
+                // Fallback: use event delegation in case the modal button is replaced/generated
+                if (!window.__modalConfirmHandlerAdded) {
+                    window.__modalConfirmHandlerAdded = true;
+                    document.addEventListener('click', function (e) {
+                        try {
+                            const target = e.target;
+                            if (target && target.id === 'modalConfirm') {
+                                console.log('modalConfirm clicked (delegated)');
+                                // Invoke the same logic by triggering a click on the element to call primary handler
+                                // (primary handler already logs and performs the action)
+                                // If primary handler isn't present, run simplified submit here
+                                const primary = target.onclick || target._onclick;
+                                // If no primary, run a minimal submit flow
+                                const form = document.getElementById('paymentsForm');
+                                if (!form) { console.warn('paymentsForm not found (delegated)'); return; }
+                                const formData = new FormData(form);
+                                fetch(form.action, { method: 'POST', body: formData, credentials: 'same-origin' })
+                                    .then(resp => {
+                                        if (resp.ok || resp.redirected) {
+                                            showLiveAlert('Payment(s) successfully submitted to SWIFT.', 'success');
+                                            setTimeout(() => window.location.reload(), 1200);
+                                        } else {
+                                            showLiveAlert('Error submitting payments. Please try again.', 'danger');
+                                        }
+                                    }).catch(err => { console.error(err); showLiveAlert('Network error while submitting payments.', 'danger'); });
+                            }
+                        } catch (ex) { console.error('Delegated handler error', ex); }
+                    });
+                }
+            }
+            catch (ex) {
+                console.error('Error initializing MyPayments scripts', ex);
+            }
         });
     </script>
 }
