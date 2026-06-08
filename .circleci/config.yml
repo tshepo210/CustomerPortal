@@ -56,6 +56,11 @@ jobs:
             echo "Using project: $P"
             if [ -z "$P" ]; then echo "No .csproj found"; exit 1; fi
             dotnet restore "$P"
+            # Also restore any discovered test projects so dotnet test can run without missing packages
+            for t in $(find . -type f \( -name "*Test*.csproj" -o -name "*Tests*.csproj" -o -name "*Integration*.csproj" \) -print); do
+              echo "Restoring test project: $t"
+              dotnet restore "$t" || true
+            done
 
       - run:
           name: Locate project and Build
@@ -95,7 +100,8 @@ jobs:
                 PROJ_DIR=$(dirname "$t")
                 RESULTS_DIR="$PROJ_DIR/TestResults"
                 mkdir -p "$RESULTS_DIR"
-                dotnet test "$t" --no-build -c Release --logger "trx;LogFileName=$(basename $t)-tests.trx" --results-directory "$RESULTS_DIR"
+                # Build before running tests to ensure test assemblies and dependencies are available
+                dotnet test "$t" -c Release --logger "trx;LogFileName=$(basename $t)-tests.trx" --results-directory "$RESULTS_DIR"
                 # copy any trx files to root TestResults for CircleCI to pick up
                 find "$RESULTS_DIR" -type f -name "*.trx" -exec cp {} TestResults/ \;
               done
