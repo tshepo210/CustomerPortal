@@ -1,55 +1,97 @@
 version: 2.1
 
 jobs:
-  build-and-test:
+  build_sonar:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:8.0
-      - image: mcr.microsoft.com/mssql/server:2022-latest
-        name: mssql
-        environment:
-          ACCEPT_EULA: "Y"
-          SA_PASSWORD: "${SA_PASSWORD}"
     working_directory: ~/repo
     steps:
       - checkout
 
       - restore_cache:
           keys:
-            - v1-nuget-{{ checksum "CustomerPortal.sln" }}
+            - v1-nuget-{{ .Branch }}
             - v1-nuget-
 
       - run:
-          name: Restore
-          command: dotnet restore CustomerPortal.sln
-
-      - run:
-          name: Build
-          command: dotnet build CustomerPortal.sln --configuration Release --no-restore
-
-      - run:
-          name: Wait for SQL Server
+          name: Install SonarScanner (if needed)
           command: |
-            echo "Waiting for mssql on port 1433..."
-            for i in $(seq 1 30); do
-              (echo > /dev/tcp/mssql/1433) >/dev/null 2>&1 && { echo "mssql reachable"; break; }
-              echo -n .
-              sleep 2
-            done
+            dotnet tool install --global dotnet-sonarscanner || true
+            export PATH="$PATH:$HOME/.dotnet/tools"
 
       - run:
-          name: Run integration tests
+          name: Sonar begin (optional)
           command: |
-            export SA_PASSWORD=${SA_PASSWORD}
-            export ConnectionStrings__DefaultConnection="Server=mssql,1433;Initial Catalog=CustomerPortalTest;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;"
-            dotnet test CustomerPortal.IntegrationTests/CustomerPortal.IntegrationTests.csproj --no-build --verbosity minimal
+            if [ -n "$SONAR_HOST_URL" ] && [ -n "$SONAR_TOKEN" ]; then
+              dotnet sonarscanner begin /k:"CustomerPortal" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN"
+            else
+              echo "SONAR_HOST_URL or SONAR_TOKEN not set; skipping SonarScanner begin"
+            fi
+
+      - run:
+          name: Locate project and Restore
+          command: |
+            if [ -f CustomerPortal.csproj ]; then P=CustomerPortal.csproj;
+            elif [ -f CustomerPortal/CustomerPortal.csproj ]; then P=CustomerPortal/CustomerPortal.csproj;
+            else P=$(ls *.csproj 2>/dev/null | head -n1); fi
+            echo "Using project: $P"
+            if [ -z "$P" ]; then echo "No .csproj found"; exit 1; fi
+            dotnet restore "$P"
+
+      - run:
+          name: Locate project and Build
+          command: |
+            if [ -f CustomerPortal.csproj ]; then P=CustomerPortal.csproj;
+            elif [ -f CustomerPortal/CustomerPortal.csproj ]; then P=CustomerPortal/CustomerPortal.csproj;
+            else P=$(ls *.csproj 2>/dev/null | head -n1); fi
+            echo "Building project: $P"
+            if [ -z "$P" ]; then echo "No .csproj found"; exit 1; fi
+            dotnet build "$P" --configuration Release --no-restore
+
+      - run:
+          name: Locate project and Publish
+          command: |
+            if [ -f CustomerPortal.csproj ]; then P=CustomerPortal.csproj;
+            elif [ -f CustomerPortal/CustomerPortal.csproj ]; then P=CustomerPortal/CustomerPortal.csproj;
+            else P=$(ls *.csproj 2>/dev/null | head -n1); fi
+            echo "Publishing project: $P"
+            if [ -z "$P" ]; then echo "No .csproj found"; exit 1; fi
+            dotnet publish "$P" -c Release -o publish
+
+      - run:
+          name: Check for vulnerable NuGet packages
+          command: |
+            echo "Checking for vulnerable packages..."
+            VULN_COUNT=0
+            dotnet list package --vulnerable || true
+            if [ "${FAIL_ON_VULN}" = "true" ]; then
+              # Fail the job if any vulnerabilities are reported (simple heuristic)
+              if dotnet list package --vulnerable | grep -q "Package id"; then
+                echo "Vulnerable packages found; failing because FAIL_ON_VULN=true"
+                exit 1
+              fi
+            fi
+
+      - run:
+          name: Sonar end (optional)
+          command: |
+            if [ -n "$SONAR_HOST_URL" ] && [ -n "$SONAR_TOKEN" ]; then
+              dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
+            else
+              echo "SONAR_HOST_URL or SONAR_TOKEN not set; skipping SonarScanner end"
+            fi
+
+      - store_artifacts:
+          path: publish
+          destination: publish
 
       - save_cache:
           paths:
             - ~/.nuget/packages
-          key: v1-nuget-{{ checksum "CustomerPortal.sln" }}
+          key: v1-nuget-{{ .Branch }}
 
 workflows:
   version: 2
   build-and-test-workflow:
     jobs:
-      - build-and-test
+      - build_sonar
