@@ -59,6 +59,30 @@ jobs:
             dotnet publish "$P" -c Release -o publish
 
       - run:
+          name: Run unit and integration tests (if present)
+          command: |
+            echo "Discovering test projects..."
+            # find common test project patterns
+            TEST_PROJS=$(find . -type f \( -name "*Test*.csproj" -o -name "*Tests*.csproj" -o -name "*Integration*.csproj" \) -print)
+            if [ -z "$TEST_PROJS" ]; then
+              echo "No test projects found; skipping tests"
+            else
+              echo "Found test projects:"
+              echo "$TEST_PROJS"
+              mkdir -p TestResults
+              for t in $TEST_PROJS; do
+                echo "Running tests for $t"
+                # ensure results dir exists next to the project
+                PROJ_DIR=$(dirname "$t")
+                RESULTS_DIR="$PROJ_DIR/TestResults"
+                mkdir -p "$RESULTS_DIR"
+                dotnet test "$t" --no-build -c Release --logger "trx;LogFileName=$(basename $t)-tests.trx" --results-directory "$RESULTS_DIR"
+                # copy any trx files to root TestResults for CircleCI to pick up
+                find "$RESULTS_DIR" -type f -name "*.trx" -exec cp {} TestResults/ \;
+              done
+            fi
+
+      - run:
           name: Check for vulnerable NuGet packages
           command: |
             echo "Checking for vulnerable packages..."
@@ -83,7 +107,9 @@ jobs:
 
       - store_artifacts:
           path: publish
-          destination: publish
+
+      - store_test_results:
+          path: TestResults
 
       - save_cache:
           paths:
