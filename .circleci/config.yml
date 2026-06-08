@@ -33,7 +33,16 @@ jobs:
                 echo "dotnet-sonarscanner not found on PATH; listing global tools"
                 dotnet tool list -g || true
               fi
-              dotnet sonarscanner begin /k:"CustomerPortal" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN"
+              # If using SonarCloud (sonarcloud.io) an organization (/o) parameter is required
+              if echo "$SONAR_HOST_URL" | grep -qi "sonarcloud.io"; then
+                if [ -z "$SONAR_ORG" ]; then
+                  echo "SONAR_ORG is required when using SonarCloud (sonarcloud.io). Set SONAR_ORG in CircleCI project env vars and retry."
+                  exit 1
+                fi
+                dotnet sonarscanner begin /k:"CustomerPortal" /o:"$SONAR_ORG" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN"
+              else
+                dotnet sonarscanner begin /k:"CustomerPortal" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN"
+              fi
             else
               echo "SONAR_HOST_URL or SONAR_TOKEN not set; skipping SonarScanner begin"
             fi
