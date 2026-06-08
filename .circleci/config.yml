@@ -17,7 +17,10 @@ jobs:
           name: Install SonarScanner (if needed)
           command: |
             dotnet tool install --global dotnet-sonarscanner || true
+            # Ensure the dotnet tools path is available for this session
             export PATH="$PATH:$HOME/.dotnet/tools"
+            # Persist the tools path for subsequent steps
+            echo 'export PATH="$PATH:$HOME/.dotnet/tools"' >> ~/.bash_profile || true
 
       - run:
           name: Sonar begin (optional)
