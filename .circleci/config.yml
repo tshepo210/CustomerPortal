@@ -1,0 +1,154 @@
+version: 2.1
+
+jobs:
+  build_sonar:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:8.0
+    working_directory: ~/repo
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-nuget-{{ .Branch }}
+            - v1-nuget-
+
+      - run:
+          name: Install SonarScanner (if needed)
+          command: |
+            dotnet tool install --global dotnet-sonarscanner || true
+            # Ensure the dotnet tools path is available for this session
+            export PATH="$PATH:$HOME/.dotnet/tools"
+            # Persist the tools path for subsequent steps
+            echo 'export PATH="$PATH:$HOME/.dotnet/tools"' >> ~/.bash_profile || true
+
+      - run:
+          name: Sonar begin (optional)
+          command: |
+            # Ensure dotnet global tools path is available in this step
+            export PATH="$PATH:$HOME/.dotnet/tools"
+            if [ -n "$SONAR_HOST_URL" ] && [ -n "$SONAR_TOKEN" ]; then
+              # verify tool is available
+              if ! command -v dotnet-sonarscanner >/dev/null 2>&1; then
+                echo "dotnet-sonarscanner not found on PATH; listing global tools"
+                dotnet tool list -g || true
+              fi
+              # If using SonarCloud (sonarcloud.io) an organization (/o) parameter is required
+              if echo "$SONAR_HOST_URL" | grep -qi "sonarcloud.io"; then
+                if [ -z "$SONAR_ORG" ]; then
+                  echo "SONAR_ORG is required when using SonarCloud (sonarcloud.io). Set SONAR_ORG in CircleCI project env vars and retry."
+                  exit 1
+                fi
+                dotnet sonarscanner begin /k:"CustomerPortal" /o:"$SONAR_ORG" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN"
+              else
+                dotnet sonarscanner begin /k:"CustomerPortal" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN"
+              fi
+            else
+              echo "SONAR_HOST_URL or SONAR_TOKEN not set; skipping SonarScanner begin"
+            fi
+
+      - run:
+          name: Locate project and Restore
+          command: |
+            if [ -f CustomerPortal.csproj ]; then P=CustomerPortal.csproj;
+            elif [ -f CustomerPortal/CustomerPortal.csproj ]; then P=CustomerPortal/CustomerPortal.csproj;
+            else P=$(ls *.csproj 2>/dev/null | head -n1); fi
+            echo "Using project: $P"
+            if [ -z "$P" ]; then echo "No .csproj found"; exit 1; fi
+            dotnet restore "$P"
+            # Also restore any discovered test projects so dotnet test can run without missing packages
+            for t in $(find . -type f \( -name "*Test*.csproj" -o -name "*Tests*.csproj" -o -name "*Integration*.csproj" \) -print); do
+              echo "Restoring test project: $t"
+              dotnet restore "$t" || true
+            done
+
+      - run:
+          name: Locate project and Build
+          command: |
+            if [ -f CustomerPortal.csproj ]; then P=CustomerPortal.csproj;
+            elif [ -f CustomerPortal/CustomerPortal.csproj ]; then P=CustomerPortal/CustomerPortal.csproj;
+            else P=$(ls *.csproj 2>/dev/null | head -n1); fi
+            echo "Building project: $P"
+            if [ -z "$P" ]; then echo "No .csproj found"; exit 1; fi
+            dotnet build "$P" --configuration Release --no-restore
+
+      - run:
+          name: Locate project and Publish
+          command: |
+            if [ -f CustomerPortal.csproj ]; then P=CustomerPortal.csproj;
+            elif [ -f CustomerPortal/CustomerPortal.csproj ]; then P=CustomerPortal/CustomerPortal.csproj;
+            else P=$(ls *.csproj 2>/dev/null | head -n1); fi
+            echo "Publishing project: $P"
+            if [ -z "$P" ]; then echo "No .csproj found"; exit 1; fi
+            dotnet publish "$P" -c Release -o publish
+
+      - run:
+          name: Run unit and integration tests (if present)
+          command: |
+            echo "Discovering test projects..."
+            # find common test project patterns
+            TEST_PROJS=$(find . -type f \( -name "*Test*.csproj" -o -name "*Tests*.csproj" -o -name "*Integration*.csproj" \) -print)
+            if [ -z "$TEST_PROJS" ]; then
+              echo "No test projects found; skipping tests"
+            else
+              echo "Found test projects:"
+              echo "$TEST_PROJS"
+              mkdir -p TestResults
+              for t in $TEST_PROJS; do
+                echo "Running tests for $t"
+                # ensure results dir exists next to the project
+                PROJ_DIR=$(dirname "$t")
+                RESULTS_DIR="$PROJ_DIR/TestResults"
+                mkdir -p "$RESULTS_DIR"
+                # Build before running tests to ensure test assemblies and dependencies are available
+                dotnet test "$t" -c Release --logger "trx;LogFileName=$(basename $t)-tests.trx" --results-directory "$RESULTS_DIR"
+                # copy any trx files to root TestResults for CircleCI to pick up
+                find "$RESULTS_DIR" -type f -name "*.trx" -exec cp {} TestResults/ \;
+              done
+            fi
+
+      - run:
+          name: Check for vulnerable NuGet packages
+          command: |
+            echo "Checking for vulnerable packages..."
+            VULN_COUNT=0
+            dotnet list package --vulnerable || true
+            if [ "${FAIL_ON_VULN}" = "true" ]; then
+              # Fail the job if any vulnerabilities are reported (simple heuristic)
+              if dotnet list package --vulnerable | grep -q "Package id"; then
+                echo "Vulnerable packages found; failing because FAIL_ON_VULN=true"
+                exit 1
+              fi
+            fi
+
+      - run:
+          name: Sonar end (optional)
+          command: |
+            # Ensure dotnet global tools path is available in this step
+            export PATH="$PATH:$HOME/.dotnet/tools"
+            if [ -n "$SONAR_HOST_URL" ] && [ -n "$SONAR_TOKEN" ]; then
+              if ! command -v dotnet-sonarscanner >/dev/null 2>&1; then
+                echo "dotnet-sonarscanner not found on PATH; listing global tools"
+                dotnet tool list -g || true
+              fi
+              dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
+            else
+              echo "SONAR_HOST_URL or SONAR_TOKEN not set; skipping SonarScanner end"
+            fi
+
+      - store_artifacts:
+          path: publish
+
+      - store_test_results:
+          path: TestResults
+
+      - save_cache:
+          paths:
+            - ~/.nuget/packages
+          key: v1-nuget-{{ .Branch }}
+
+workflows:
+  version: 2
+  build-and-test-workflow:
+    jobs:
+      - build_sonar
