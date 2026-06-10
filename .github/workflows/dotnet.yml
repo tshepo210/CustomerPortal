@@ -35,14 +35,14 @@ jobs:
 
     # BUILD
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./CustomerPortal/CustomerPortal.sln
 
     - name: Build project
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build ./CustomerPortal/CustomerPortal.sln --configuration Release --no-restore
 
     # TESTS
     - name: Run tests
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test ./CustomerPortal/CustomerPortal.sln --no-build --verbosity normal
 
     # CODEQL ANALYSIS
     - name: Perform CodeQL Analysis
