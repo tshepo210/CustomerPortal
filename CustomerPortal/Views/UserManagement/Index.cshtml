@@ -1,0 +1,81 @@
+﻿@model IEnumerable<CustomerPortal.Models.UserListViewModel>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">👥 Users</h2>
+            <small class="text-muted">Manage users and their roles</small>
+        </div>
+
+        <a class="btn btn-primary rounded-3 px-4" asp-action="Create">
+            + Create User
+        </a>
+    </div>
+
+    <!-- Alerts -->
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success rounded-3">
+            @TempData["Message"]
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger rounded-3">
+            @TempData["Error"]
+        </div>
+    }
+
+    <!-- Full width table container -->
+    <div class="bg-white shadow-sm rounded-4 p-4 w-100">
+
+        <div class="table-responsive w-100">
+            <table class="table table-hover align-middle mb-0 w-100">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Country</th>
+                        <th>Roles</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var u in Model)
+                    {
+                        <tr>
+                            <td class="fw-semibold">@u.FullName</td>
+                            <td>@u.Email</td>
+                            <td>@u.Country</td>
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(u.Roles))
+                                {
+                                    foreach (var r in u.Roles.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries))
+                                    {
+                                        <span class="badge bg-secondary rounded-pill px-3 py-2 me-1">
+                                            @r.Trim()
+                                        </span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="text-muted">—</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>

@@ -19,12 +19,19 @@ namespace CustomerPortal.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            // Provide defaults so required fields (Country/Role) are populated
+            var model = new CustomerPortal.Models.CreateUserViewModel
+            {
+                Country = "ZAR",
+                Role = "User"
+            };
+
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateUserViewModel model)
+        public async Task<IActionResult> Create(CustomerPortal.Models.CreateUserViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -61,16 +68,27 @@ namespace CustomerPortal.Controllers
 
             await _userManager.AddToRoleAsync(user, role);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
-        public class CreateUserViewModel
+        public async Task<IActionResult> Index()
         {
-            public string FullName { get; set; } = string.Empty;
-            public string Email { get; set; } = string.Empty;
-            public string Password { get; set; } = string.Empty;
-            public string Country { get; set; } = "ZAR";
-            public string Role { get; set; } = "User";
+            var users = _userManager.Users.ToList();
+            var model = new List<CustomerPortal.Models.UserListViewModel>();
+            foreach (var u in users)
+            {
+                var roles = await _userManager.GetRolesAsync(u);
+                model.Add(new CustomerPortal.Models.UserListViewModel
+                {
+                    Id = u.Id,
+                    FullName = u.FullName,
+                    Email = u.Email,
+                    Country = u.Country,
+                    Roles = string.Join(", ", roles)
+                });
+            }
+
+            return View(model);
         }
     }
 }

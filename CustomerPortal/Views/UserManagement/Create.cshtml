@@ -1,5 +1,5 @@
 ﻿@using CustomerPortal.Models;
-@model CustomerPortal.Controllers.UserManagementController.CreateUserViewModel;
+@model CustomerPortal.Models.CreateUserViewModel;
 
 @{
     ViewData["Title"] = "Register";
@@ -36,6 +36,8 @@
                         <option value="Admin">Admin</option>
                     </select>
                 </div>
+                @* Keep country as a hidden field with default provided by the controller *@
+                <input asp-for="Country" type="hidden" />
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary">Create</button>
                 </div>
